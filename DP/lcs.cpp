@@ -2,30 +2,62 @@
  * Given two strings of length m and n respectively.
  * Find the length of the longest common subsequence of the strings
  ****/
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int lcs(int memo[100][100],int m,int n,string s1,string s2)
+int lcs(int dp[100][100], string x, string y, int n, int m)
 {
-    if(memo[m][n] != -1){
-        return memo[m][n];
+    if (dp[n][m] != -1)
+    {
+        return dp[n][m];
     }
-    if(m == 0 || n == 0){
-        memo[m][n] = 0;
+    if (n == 0 || m == 0)
+    {
+        return dp[n][m] = 0;
     }
-    else{
-        if(s1[m-1] == s2[n-1]){
-            memo[m][n] = 1+ lcs(memo,m-1,n-1,s1,s2);
-        }else{
-            memo[m][n] = max(lcs(memo,m,n-1,s1,s2),lcs(memo,m-1,n,s1,s2));
-        }
+    if (x[n - 1] == y[m - 1])
+    {
+        return dp[n][m] = 1 + lcs(dp, x, y, n - 1, m - 1);
     }
-    return memo[m][n];
+    else
+    {
+        return dp[n][m] = max(lcs(dp, x, y, n - 1, m), lcs(dp, x, y, n, m - 1));
+    }
 }
 
-int main(){
-    string s1="ABCDGH";
-    string s2="AEDFHR";
+int lcsTabular(string x, string y, int n, int m)
+{
+    int dp[n + 1][m + 1];
+    for (int i = 0; i <= m; i++)
+    {
+        dp[0][i] = 0;
+    }
+    for (int i = 0; i <= n; i++)
+    {
+        dp[i][0] = 0;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= m; j++)
+        {
+            if (x[i - 1] == y[j - 1])
+            {
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            }
+            else
+            {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+
+    return dp[n][m];
+}
+int main()
+{
+    string s1;
+    string s2;
+    cin >> s1 >> s2;
     int m = s1.length();
     int n = s2.length();
     int memo[100][100];
@@ -35,8 +67,8 @@ int main(){
         {
             memo[i][j] = -1;
         }
-        
     }
-    cout<<lcs(memo,m,n,s1,s2);
+    cout << "Memoized Soln " << lcs(memo, s1, s2, m, n) << endl;
+    cout << "Tabular Soln " << lcsTabular(s1, s2, m, n);
     return 0;
 }

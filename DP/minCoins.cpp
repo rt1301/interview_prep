@@ -24,11 +24,43 @@ int minCoins(int coins[],int n,int val){
     }
     
 }
+const int inf = INT_MAX-1;
+int coinCount(int coin[], int n, int sum){
+    int dp[n+1][sum+1];
+    for(int i=0;i<=sum;i++){
+        dp[0][i] = inf;
+    }
+    for(int i=0;i<=n;i++){
+        dp[i][0] = 0;
+    }
+    for(int i=1;i<=sum;i++){
+        if(i%coin[0] == 0){
+            dp[1][i] = i/coin[0];
+        }else{
+            dp[1][i] = inf;
+        }
+    }
+
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=sum;j++){
+            if(coin[i-1]<=j){
+                dp[i][j] = min(1+dp[i][j-coin[i-1]], dp[i-1][j]);
+            }else{
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    if(dp[n][sum] == inf){
+        return -1;
+    }else{
+        return dp[n][sum];
+    }
+}
 
 int main(){
     int arr[] = {25,10,5};
     int n = sizeof(arr)/sizeof(arr[0]);
     int val = 30;
-    cout<<minCoins(arr,n,val);
+    cout<<coinCount(arr,n,val);
     return 0;
 }
