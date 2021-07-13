@@ -1,5 +1,5 @@
 /****
- * Minimum Spanning Tree using Kruskal Algorithm
+ * Minimum Spanning Tree using Prims Algorithm
  ****/
 #include<bits/stdc++.h>
 using namespace std;

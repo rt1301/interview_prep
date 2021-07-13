@@ -38,10 +38,28 @@ int maxDifferenceOptimised(int arr[],int n){
     }
     return max_diff;
 }
+
+int maxDiffAlt(int arr[], int n){
+    int maxDiff = INT_MIN;
+    int maxEl = *max_element(arr,arr+n);
+    for(int i=0;i<n;i++){
+        arr[i] = maxEl - arr[i];
+    }
+
+    for(int i=0;i<n;i++){
+        maxDiff = max(maxDiff, arr[i]);
+        if(arr[i] == 0){
+            break;
+        }
+    }
+
+    return maxDiff;
+}
 int main(){
     int arr[] = {2, 3, 10, 6, 4, 8, 1};
     int n = sizeof(arr)/sizeof(arr[0]);
     int ans = maxDifferenceOptimised(arr,n);
-    cout<<ans<<endl;
+    int ans_2 = maxDiffAlt(arr,n);
+    cout<<ans<<"\nAlternate Approach "<<ans_2<<endl;
     return 0;
 }
