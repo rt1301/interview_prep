@@ -26,7 +26,7 @@ int countSub(string s){
 
         last[s[i-1]] = (i-1);
     }
-
+    cout<<dp[6]<<endl;
     return dp[n];
 }
 

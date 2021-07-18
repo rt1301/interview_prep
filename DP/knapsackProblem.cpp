@@ -34,10 +34,10 @@ int knapsack(int W,int wt[],int val[],int n){
 }
 
 int main(){
-    int v[] = {10,40,30,50};
-    int wt[] = {5,4,6,3};
+    int v[] = {359, 963, 465, 706, 146, 282, 828, 962, 492};
+    int wt[] = {96, 43, 28, 37, 92, 5, 3, 54, 93};
     int n = sizeof(v)/sizeof(v[0]);
-    int W = 10;
+    int W = 383;
     cout<<knapsack(W,wt,v,n);
     return 0;
 }
