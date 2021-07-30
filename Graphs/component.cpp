@@ -44,6 +44,6 @@ int main(){
     for(auto i:components){
         ans+=(i*(n-i));
     }
-    cout<<(ans/2);
+    // cout<<(ans/2);
     return 0;
 }
